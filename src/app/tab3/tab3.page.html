@@ -1,0 +1,104 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>ควบคุม </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item>
+      <ion-label>เปิดการรับแสง</ion-label>
+      <ion-toggle
+        [disabled]="status1"
+        [(ngModel)]="dooron"
+        (ionChange)="onClickonDoor($event)"
+        slot="end"
+        color="primary"
+        checked
+      ></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>ปิดการรับแสง</ion-label>
+      <ion-toggle
+        [disabled]="!status1"
+        slot="end"
+        [(ngModel)]="dooroff"
+        (ionChange)="onClickoffDoor($event)"
+        name="closedor"
+        color="danger"
+      ></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>เปิด E-vap</ion-label>
+      <ion-toggle
+        slot="end"
+        [(ngModel)]="Evap"
+        name="openE"
+        color="primary"
+        (ionChange)="onClickEvap($event)"
+      ></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>เปิดหลอดไฟให้แสง</ion-label>
+      <ion-toggle
+        slot="end"
+        [(ngModel)]="openlight"
+        (ionChange)="onClicklight($event)"
+        color="primary"
+        checked
+      ></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-card>
+    สถานะอุปกรณ์
+    <ion-list>
+      <ion-item>
+        สถานะอุปกรณ์
+        <ion-label slot="end" color="success"
+          >{{status_con==="on" ? "Connect":"Dissconcent"}}</ion-label
+        >
+        <!-- <ion-icon name="sad-outline" slot="end" color="danger"></ion-icon> -->
+      </ion-item>
+      <ion-item>
+        หลังคา
+        <ion-label slot="end" color="success"
+          >{{door_status==="on" ? "ON":"OFF"}}</ion-label
+        >
+        <!-- <ion-icon name="sad-outline" slot="end" color="danger"></ion-icon> -->
+      </ion-item>
+
+      <ion-item>
+        E-vap
+        <ion-label slot="end" color="success"
+          >{{evap_status ==="on" ? "ON":"OFF"}}</ion-label
+        >
+        <!-- <ion-icon name="happy-outline" slot="end" color="success"></ion-icon> -->
+      </ion-item>
+
+      <ion-item>
+        หลอดไฟให้แสง
+        <ion-label slot="end" color="success"
+          >{{light_status ==="on" ? "ON":"OFF"}}</ion-label
+        >
+        <!-- <ion-icon name="happy-outline" slot="end" color="success"></ion-icon> -->
+      </ion-item>
+      <ion-item>
+        ปั๊มน้ำ
+        <ion-label slot="end" color="success"
+          >{{light_status ==="on" ? "ON":"OFF"}}</ion-label
+        >
+        <!-- <ion-icon name="happy-outline" slot="end" color="success"></ion-icon> -->
+      </ion-item>
+      <ion-row no-padding>
+        <ion-col style="text-align: center">
+          <ion-button color="primary" (click)="readstatus()"
+            >อ่านค่า</ion-button
+          >
+        </ion-col></ion-row
+      >
+    </ion-list>
+  </ion-card>
+</ion-content>
