@@ -12,6 +12,8 @@ export class Tab2Page implements OnInit {
   public setTimeEnd1: string = '--:--';
   public setTimeStart2: string = '--:--';
   public setTimeEnd2: string = '--:--';
+  public setTimeStart3: string = '--:--';
+  public setTimeEnd3: string = '--:--';
   public setTemp1: string = '';
   public setTemp2: string = '';
   public setLux1: string = '';
@@ -36,6 +38,14 @@ export class Tab2Page implements OnInit {
         console.log(value);
         this.setTimeStart2 = value.split(',')[0];
         this.setTimeEnd2 = value.split(',')[1];
+      });
+      this.fb
+      .object('set/time3')
+      .valueChanges()
+      .subscribe((value: any) => {
+        console.log(value);
+        this.setTimeStart3 = value.split(',')[0];
+        this.setTimeEnd3 = value.split(',')[1];
       });
     this.fb
       .object('set/setLux')
@@ -99,8 +109,33 @@ export class Tab2Page implements OnInit {
         .set(this.setTimeStart2 + ',' + this.setTimeEnd2)
         .then(() => {
           this.service.publish(
-            `/time1`,
+            `/time2`,
             `${this.setTimeStart2},${this.setTimeEnd2}`
+          );
+        });
+    }
+  }
+  public getTime3(part: any, data) {
+    let dt_s = new Date(data);
+    if (part === 'start') {
+      let timestart = `${this.zeroPad(dt_s.getHours())}:${this.zeroPad(
+        dt_s.getMinutes()
+      )}`;
+      this.setTimeStart3 = timestart;
+    } else if (part === 'end') {
+      let timestart = `${this.zeroPad(dt_s.getHours())}:${this.zeroPad(
+        dt_s.getMinutes()
+      )}`;
+      this.setTimeEnd3 = timestart;
+    }
+    if (this.setTimeStart3 !== undefined && this.setTimeEnd3 !== undefined) {
+      this.fb
+        .object('set/time3')
+        .set(this.setTimeStart3 + ',' + this.setTimeEnd3)
+        .then(() => {
+          this.service.publish(
+            `/time3`,
+            `${this.setTimeStart3},${this.setTimeEnd3}`
           );
         });
     }
@@ -183,11 +218,11 @@ export class Tab2Page implements OnInit {
           });
           this.fb
             .object('set/setTemp')
-            .set(this.setTemp1 + ',' + this.setTemp1)
+            .set(this.setTemp1 + ',' + this.setTemp2)
             .then(() => {
               this.service.publish(
-                `/setLux`,
-                `${this.setTemp2},${this.setTemp2}`
+                `/setTemp`,
+                `${this.setTemp1},${this.setTemp2}`
               );
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {

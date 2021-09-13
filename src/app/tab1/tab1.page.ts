@@ -12,7 +12,17 @@ export class Tab1Page implements OnInit {
   public readTemp;
   public readHum;
   public readLux;
-
+  
+  public time_start1;
+  public time_start2;
+  public time_start3;
+  public time_end1;
+  public time_end2;
+  public time_end3;
+  public  Lux_start;
+  public  Lux_end;
+  public  temp_start;
+  public  temp_end;
   constructor(public service: AppserviceService) {
     
     this.service.message((val) => {
@@ -21,10 +31,32 @@ export class Tab1Page implements OnInit {
         this.readTemp = `${val.message}`.split(',')[1];
         this.readHum = `${val.message}`.split(',')[2];
 
-        console.log(this.readLux, this.readTemp, this.readHum);
+        
       }
     });
-   
+    this.service.message((val) => {
+      if (val.topic == '/Jokeiot/Jokeiot/timeall') {
+        this.time_start1 = `${val.message}`.split(',')[0];
+        this.time_end1 = `${val.message}`.split(',')[1];
+        this.time_start2 = `${val.message}`.split(',')[2];
+        this.time_end2 = `${val.message}`.split(',')[3];
+        this.time_start3 = `${val.message}`.split(',')[4];
+        this.time_end3 = `${val.message}`.split(',')[6];
+
+       
+      }
+    });
+      this.service.message((val) => {
+      if (val.topic == '/Jokeiot/Jokeiot/setall') {
+        this.Lux_start = `${val.message}`.split(',')[0];
+        this.Lux_end = `${val.message}`.split(',')[1];
+        this.temp_start = `${val.message}`.split(',')[2];
+        this.temp_end = `${val.message}`.split(',')[3];
+       
+
+       
+      }
+    });
 
   }
 

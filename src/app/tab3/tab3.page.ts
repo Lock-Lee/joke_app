@@ -20,10 +20,12 @@ export class Tab3Page implements OnInit {
   public status_evap;
   public status_light;
   public status_water;
+  public status_con ="";
   constructor(
     public fb: AngularFireDatabase,
     public service: AppserviceService
   ) {
+    this.status_con  =  this.service.present();
     this.service.message((val) => {
       if (val.topic == '/Jokeiot/Jokeiot/status') {
         this.door_status = `${val.message}`.split(',')[0];
@@ -32,10 +34,16 @@ export class Tab3Page implements OnInit {
         this.status_water = `${val.message}`.split(',')[3];
       }
     });
-
-
+   
+    
+    this.status_con  =  service.present();
+    console.log(service.present());
+    
+    console.log(this.status_con);
+    
   }
   ngOnInit() {
+    this.status_con  =  this.service.present();
     this.fb
       .object('set/status')
       .valueChanges()
@@ -65,7 +73,9 @@ export class Tab3Page implements OnInit {
           this.dooron = false;
           this.dooroff = true;
         }
-      });
+      }); 
+    
+     
   }
 
   public onClickEvap = (e) => {
@@ -137,5 +147,7 @@ export class Tab3Page implements OnInit {
   };
   public readstatus() {
     this.service.publish(`/readstatus`, `1`);
+    
+    this.status_con  =  this.service.present();
   }
 }

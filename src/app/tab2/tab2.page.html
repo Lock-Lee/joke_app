@@ -95,7 +95,7 @@
     </ion-item>
 
     <h6>
-      ตั้งเวลารดน้ำ
+      ตั้งเวลารดน้ำที่ 1
       <ion-icon name="alarm-outline" slot="start"></ion-icon>
     </h6>
     <ion-item>
@@ -121,7 +121,7 @@
         </ion-col>
         <ion-col>
           <ion-item lines="none">
-            <label style="font-size: 12px">กับ</label>
+            <label style="font-size: 12px">ถึง</label>
           </ion-item>
         </ion-col>
         <ion-row>
@@ -140,7 +140,52 @@
         </ion-row>
       </ion-row>
     </ion-item>
+    <h6>
+      ตั้งเวลารดน้ำที่ 2
+      <ion-icon name="alarm-outline" slot="start"></ion-icon>
+    </h6>
+    <ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-item
+            lines="none"
+            style="
+              --detail-icon-font-size: 0px;
+              --padding-end: 0px;
+              text-align: center;
+            "
+          >
+            <ion-label>{{ setTimeStart3 }}</ion-label>
+            <ion-datetime
+              style="width: 0px; height: 0px; padding: 0px"
+              pickerFormat="HH:mm"
+              #setTimeStart3_2
+              displayFormat=" "
+              (ionChange)="getTime3('start',setTimeStart3_2.value)"
+            ></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <label style="font-size: 12px">ถึง</label>
+          </ion-item>
+        </ion-col>
+        <ion-row>
+          <ion-item lines="none" style="text-align: center">
+            <ion-label>{{ setTimeEnd3 }}</ion-label>
+            <ion-datetime
+              style="width: 0px; height: 0px; padding: 0px"
+              pickerFormat="HH:mm"
+              #setTimeEnd3_2
+              displayFormat=" "
+              (ionChange)="getTime3('end',setTimeEnd3_2.value)"
+            ></ion-datetime>
 
+            <!-- ยืนยัน ตั้งรน้ำ -->
+          </ion-item>
+        </ion-row>
+      </ion-row>
+    </ion-item>
     <h6>ความเข้มแสง</h6>
 
     <ion-list
